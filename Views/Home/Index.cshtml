@@ -1,0 +1,18 @@
+﻿@model Dashboard
+<h1>People and Movies</h1>
+<hr>
+<h3>All People</h3>
+@{
+  foreach(Person person in @Model.People)
+  {
+    <p><a href="/person/@person.PersonId">@person.FirstName @person.LastName</a></p>
+  }
+}
+<hr>
+<h3>All Movies</h3>
+@{
+  foreach(Movie movie in @Model.Movies)
+  {
+    <p><a href="/movie/@movie.MovieId">@movie.Title</a></p>
+  }
+}
