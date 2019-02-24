@@ -14,7 +14,7 @@
   </div>
   <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
     <label>Favorite Movie:</label>
-    <select asp-for="FavoriteMovie">
+    <select asp-for="MovieId">
       @foreach(Movie movie in @Model.Movies)
       {
         <option value="@movie.MovieId">@movie.Title</option>
