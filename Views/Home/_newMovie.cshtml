@@ -1,0 +1,22 @@
+@model Movie
+
+<h3>Add New Movie</h3>
+<form asp-action="NewMovie" asp-controller="Home" method="post">
+  <span asp-validation-for="Title" style="color: red;"></span>
+  <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
+    <label>Title:</label>
+    <input asp-for="Title">
+  </div>
+  <span asp-validation-for="Genre" style="color: red;"></span>
+  <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
+    <label>Genre:</label>
+    <input asp-for="Genre">
+  </div>
+  <span asp-validation-for="ReleaseYear" style="color: red;"></span>
+  <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
+    <label>Released:</label>
+    <input asp-for="ReleaseYear">
+  </div>
+  <br>
+  <button>Add Movie</button>
+</form>

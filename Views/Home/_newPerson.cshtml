@@ -1,0 +1,26 @@
+@model Person
+
+<h3>Add New Person</h3>
+<form asp-action="NewPerson" asp-controller="Home" method="post">
+  <span asp-validation-for="FirstName" style="color: red;"></span>
+  <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
+    <label>First Name:</label>
+    <input asp-for="FirstName">
+  </div>
+  <span asp-validation-for="LastName" style="color: red;"></span>
+  <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
+    <label>Last Name:</label>
+    <input asp-for="LastName">
+  </div>
+  <div style="display: flex; width: 25%; justify-content: space-between; align-items: center;">
+    <label>Favorite Movie:</label>
+    <select asp-for="FavoriteMovie">
+      @foreach(Movie movie in @Model.Movies)
+      {
+        <option value="@movie.MovieId">@movie.Title</option>
+      }
+    </select>
+  </div>
+  <br>
+  <button>Add Person</button>
+</form>

@@ -15,13 +15,13 @@ namespace vmf2.Controllers
     // controller methods so you have some data to work with              //
     //....................................................................//
 
-    private List<Person> AllPeople { get; set; } = new List<Person>()
+    private static List<Person> AllPeople { get; set; } = new List<Person>()
     {
       new Person(1, "Bob", "Ross"),
       new Person(2, "Rob", "Boss")
     };
 
-    private List<Movie> AllMovies { get; set; } = new List<Movie>()
+    private static List<Movie> AllMovies { get; set; } = new List<Movie>()
     {
       new Movie(1, "The Rock", "Action", 1996),
       new Movie(2, "The Empire Strikes Back", "Science Fiction", 1980),
@@ -31,11 +31,7 @@ namespace vmf2.Controllers
     [HttpGet("")]
     public IActionResult Index()
     {
-      Dashboard dash = new Dashboard()
-      {
-        People = AllPeople,
-        Movies = AllMovies
-      };
+      Dashboard dash = BuildDash();
       return View(dash);
     }
 
@@ -59,6 +55,50 @@ namespace vmf2.Controllers
           return View("Movies", movie);
       }
       return RedirectToAction("Index");
+    }
+
+    [HttpPost("newMovie")]
+    public IActionResult NewMovie(Movie movie)
+    {
+      if (ModelState.IsValid)
+      {
+        int count = AllMovies.Count;
+        movie.MovieId = ++count;
+        AllMovies.Add(movie);
+        return RedirectToAction("Index");
+      }
+      Dashboard dash = BuildDash();
+      return View("Index", dash);
+    }
+
+    [HttpPost("newPerson")]
+    public IActionResult NewPerson(Person person)
+    {
+      if (ModelState.IsValid)
+      {
+        int count = AllPeople.Count;
+        person.PersonId = ++count;
+        AllPeople.Add(person);
+        return RedirectToAction("Index");
+      }
+      Dashboard dash = BuildDash();
+      return View("Index", dash);
+    }
+
+    private Dashboard BuildDash()
+    {
+      return new Dashboard()
+      {
+        People = AllPeople,
+        Movies = AllMovies,
+        PersonId = AllPeople.Count,
+        MovieId = AllMovies.Count,
+        PersonForm = new Person()
+        {
+          Movies = AllMovies
+        }
+      };
+
     }
   }
 }
